@@ -36,28 +36,25 @@ const MORSE_TABLE = {
     '----.': '9',
     '-----': '0',
 };
-// const expr = "00101010100000000010001011101000101110100000111111**********00001011110000111111000010111000101110100000111010";
+ //const expr = "00101010100000000010001011101000101110100000111111**********00001011110000111111000010111000101110100000111010";
 function decode(expr) {
 
-    const length = 10;
-    const pattern = new RegExp(".{1," + length + "}", "ig");
-    let arr = expr.match(pattern).map(item => item.padEnd(length, "."));
-    // console.log(arr);
+    const arr = expr.match(/.{1,10}/g) ?? [];
     let newArr = [];
+
     for (let i = 0; i < arr.length; i++) {
 
         if (arr[i] === '**********') {
             newArr.push(' ')
         } else {
             let rep = arr[i].replace(/^0+/g, '').replace(/10/g, '.').replace(/11/g, '-')
-            newArr.push(MORSE_TABLE[rep])
+            newArr.push(MORSE_TABLE[rep]);
         }
     }
 
-    return newArr.join('')
-    // console.log(newArr.join(''))
+    return newArr.join('');
 }
-// const a = decode(expr)
+ //const a = decode(expr)
 
 module.exports = {
     decode
